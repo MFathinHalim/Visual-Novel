@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gameplay</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      body {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .dialog-container {
+        position: fixed;
+        bottom: 20px;
+        width: 90%; /* Increase the width for a larger dialog box */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+      }
+
+      .dialog-box,
+      .btn-light {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        font-size: 1.5rem; /* Increase font size for readability */
+      }
+
+      .dialog-box {
+        padding: 30px; /* Increase padding for a spacious look */
+        height: 150px;
+      }
+
+      .character-name {
+        font-weight: bold;
+        color: #333;
+        font-size: 1.3rem; /* Larger font size for character name */
+      }
+
+      .character-images {
+        display: flex;
+        justify-content: center;
+      }
+
+      .character-images img {
+        max-height: 1000px;
+        padding-top: 100px;
+        margin: 0 15px;
+        transition: transform 0.2s ease;
+      }
+
+      /* Character jump animation */
+      .speaking {
+        animation: jump 0.5s ease;
+      }
+
+      @keyframes jump {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        } /* Adjust height as desired */
+      }
+
+      /* Adjust choice button styles */
+      #choices-container {
+        display: none;
+        margin-top: 20px;
+      }
+
+      .choice-btn {
+        width: 100%;
+        margin-bottom: 15px;
+        font-size: 1.2rem; /* Larger font size for choice buttons */
+        padding: 10px 20px; /* Increase padding for button */
+      }
+
+      /* Prevent text selection */
+      .noselect {
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+      }
+    </style>
+  </head>
+  <body class="noselect">
+    <!-- Character images row -->
+    <div class="character-images" id="character-images">
+      <!-- Character images will be inserted dynamically here -->
+    </div>
+
+    <!-- Dialog box container -->
+    <div class="dialog-container">
+      <!-- Choices container -->
+
+      <div id="choices-container">
+        <!-- Choices will be inserted dynamically -->
+      </div>
+      <div class="dialog-box">
+        <div class="character-name" id="character-name"></div>
+        <p id="dialog-text" class="mb-2">Loading...</p>
+      </div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Initialize dialog data and indices
+      let dialogData = [];
+      let currentDialogIndex = 0;
+      let currentStoryIndex = 1; // Start from story1
+      let hasMadeChoice = false; // Track if a choice has been made
+      let dialog;
+
+      // Prevent the body click from doing anything else
+      document.body.addEventListener("click", nextDialog);
+
+      function displayCharacters(characters) {
+        const characterImagesContainer = document.getElementById("character-images");
+        characterImagesContainer.innerHTML = ""; // Clear previous characters
+
+        characters.forEach((character) => {
+          const img = document.createElement("img");
+          img.src = `${character}.jpg`; // Set image path based on character name
+          img.alt = character;
+          img.title = character;
+          characterImagesContainer.appendChild(img);
+        });
+      }
+
+      // Set the background image based on the environment
+      function setBackground(environment) {
+        document.body.style.backgroundImage = `url('${environment}.jpg')`;
+      }
+
+      // Fetch the dialog data from the server
+      fetch("/fetchTake")
+        .then((response) => response.json())
+        .then((data) => {
+          dialog = data;
+          dialogData = data[`story${currentStoryIndex}`]; // Access story1
+          setBackground(dialogData.system.environment); // Set environment background
+          displayCharacters(dialogData.system.characters); // Load characters for the current story
+          showDialog(currentDialogIndex);
+        });
+
+      // Function to display the current dialog
+      function showDialog(index) {
+        if (index < dialogData.chat.length) {
+          const dialog = dialogData.chat[index];
+          document.getElementById("dialog-text").innerText = dialog.message;
+          document.getElementById("character-name").innerText = dialog.character;
+
+          // Highlight the speaking character
+          highlightSpeakingCharacter(dialog.character);
+
+          // Hide choices if not at the end of dialog
+          document.getElementById("choices-container").style.display = "none";
+        } else {
+          if (dialogData.choices && dialogData.choices.length > 0 && !hasMadeChoice) {
+            showChoices(dialogData.choices);
+          } else {
+            document.getElementById("choices-container").style.display = "none"; // Hide choices if not available
+            goToNextStory(); // Go to the next story if no more dialogs
+          }
+        }
+      }
+
+      function highlightSpeakingCharacter(characterName) {
+        const characterImages = document.querySelectorAll(".character-images img");
+
+        characterImages.forEach((img) => {
+          // Add the 'speaking' class to the speaking character
+          if (img.alt === characterName) {
+            img.classList.add("speaking");
+
+            // Remove the 'speaking' class after the animation ends
+            img.addEventListener(
+              "animationend",
+              () => {
+                img.classList.remove("speaking");
+              },
+              { once: true },
+            ); // Use { once: true } to remove the listener after it's triggered
+          } else {
+            img.classList.remove("speaking"); // Ensure other characters do not have the class
+          }
+        });
+      }
+
+      // Function to go to the next dialog when clicking on the dialog box
+      function nextDialog() {
+        currentDialogIndex++;
+
+        showDialog(currentDialogIndex);
+      }
+
+      // Function to display choices at the end of a dialog
+      function showChoices(choices) {
+        const choicesContainer = document.getElementById("choices-container");
+        choicesContainer.innerHTML = ""; // Clear previous choices
+
+        choices.forEach((choice) => {
+          const button = document.createElement("button");
+          button.classList.add("btn", "btn-light", "choice-btn", "shadow-md");
+          button.innerText = choice.message;
+          button.onclick = () => selectChoice(choice);
+          choicesContainer.appendChild(button);
+        });
+
+        choicesContainer.style.display = "block"; // Show choices
+      }
+
+      // Function to handle a choice selection
+      function selectChoice(choice) {
+        document.getElementById("choices-container").style.display = "none";
+
+        if (choice.heart) {
+          fetch("/sendHeart", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              character: Object.keys(choice.heart)[0],
+              points: Object.values(choice.heart)[0],
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => console.log(data));
+        }
+
+        showResponseChat(choice.response);
+
+        hasMadeChoice = true;
+      }
+
+      function showResponseChat(response) {
+        currentDialogIndex = 0;
+        dialogData.chat = response;
+        showDialog(currentDialogIndex);
+      }
+
+      function goToNextStory() {
+        currentStoryIndex += 1;
+        const count = Object.keys(dialog).length;
+
+        // Check if the currentStoryIndex exceeds the available stories
+        if (currentStoryIndex > count) {
+          // If no more stories, show the button to go to nextTake
+          showNextTakeButton();
+          return; // Exit the function early to prevent further code execution
+        }
+
+        const dialogContainer = document.querySelector(".dialog-container");
+        const characterImagesContainer = document.getElementById("character-images");
+
+        // Add fade-out class to the dialog and character images
+        dialogContainer.classList.add("fade-out");
+        characterImagesContainer.classList.add("fade-out");
+
+        // Wait for the fade-out animation to finish
+        const nextStoryKey = `story${currentStoryIndex}`;
+
+        // Check if the next story exists
+        if (dialog[nextStoryKey]) {
+          dialogData = dialog[nextStoryKey];
+          currentDialogIndex = 0;
+          hasMadeChoice = false;
+
+          // Set the new background and character images
+          setBackground(dialogData.system.environment);
+          displayCharacters(dialogData.system.characters);
+
+          // Show the first dialog of the next story
+          showDialog(currentDialogIndex);
+
+          // After changing content, add fade-in
+          dialogContainer.classList.remove("fade-out");
+          characterImagesContainer.classList.remove("fade-out");
+
+          dialogContainer.classList.add("fade-in");
+          characterImagesContainer.classList.add("fade-in");
+
+          // Remove fade-in class after animation ends
+          setTimeout(() => {
+            dialogContainer.classList.remove("fade-in");
+            characterImagesContainer.classList.remove("fade-in");
+          }, 500); // Adjust based on animation duration
+        } else {
+          // If next story doesn't exist, show the button to go to nextTake
+          showNextTakeButton();
+        }
+      }
+
+      // Function to show the button for nextTake
+      function showNextTakeButton() {
+        const choicesContainer = document.getElementById("choices-container");
+
+        // Remove all existing buttons with the class 'btn-light'
+        const existingButtons = choicesContainer.getElementsByClassName("btn-light");
+        while (existingButtons.length > 0) {
+          existingButtons[0].remove(); // Remove the first existing button
+        }
+
+        // Create the new button
+        const button = document.createElement("button");
+        button.classList.add("btn", "btn-light", "choice-btn", "shadow-md");
+        button.innerText = "Go to Next Take";
+        button.onclick = () => {
+          window.location.href = "/nextTake"; // Change this to your actual nextTake URL
+        };
+        // Create the new button
+        const button2 = document.createElement("button");
+        button2.classList.add("btn", "btn-light", "choice-btn", "shadow-md");
+        button2.innerText = "Go Home";
+        button2.onclick = () => {
+          window.location.href = "/updateTake"; // Change this to your actual nextTake URL
+        };
+
+        // Add the new button to the choices container
+        fetch("/checkTake")
+        .then((response) => {
+          if (response.status === 404) {
+            // If no more takes, redirect to home
+            return
+          }
+          choicesContainer.appendChild(button);
+        })
+        choicesContainer.appendChild(button2);
+        choicesContainer.style.display = "block"; // Show the choices container if hidden
+      }
+    </script>
+  </body>
+</html>
