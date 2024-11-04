@@ -154,7 +154,10 @@
         // Load and play the background music
         backgroundMusic.src = `${environment}.mp3`;
         backgroundMusic.loop = true;
-        backgroundMusic.volume = 0.4
+        backgroundMusic.volume = localStorage.getItem("bgm")
+
+          backgroundMusic.play();
+        
         document.body.onmousedown = function() {
           backgroundMusic.play();
         };
@@ -164,7 +167,7 @@
       function playSoundEffect(emotion) {
         let soundEffect = new Audio();
         soundEffect.src = emotion ? `${emotion}.mp3` : "click.mp3";
-        soundEffect.volume = 0.7
+        soundEffect.volume = localStorage.getItem("sfx")
         soundEffect.play().catch((error) => console.warn("Sound effect play failed:", error));
       }
 

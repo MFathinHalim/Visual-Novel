@@ -1,77 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - Visual Novel Game</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-      body {
-        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("class.jpg");
-        background-size: cover;
-        color: #fff;
-        text-align: center;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      .button-container {
-        margin-top: 20px;
-      }
-      .btn {
-        font-size: 1.5rem;
-        padding: 15px 30px;
-        margin: 10px;
-        border-radius: 10px;
-        transition: background-color 0.3s;
-      }
-      .btn:hover {
-        background-color: rgba(255, 255, 255, 0.8);
-        color: #333;
-      }
-      .about-section {
-        margin-top: 50px;
-        font-size: 1.2rem;
-      }
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("class.jpg");
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .btn {
+            font-size: 1.5rem;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+        .about-section {
+            margin-top: 50px;
+            font-size: 1.2rem;
+        }
+        .volume-control {
+            margin: 20px 0;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <h1>Welcome to the Visual Novel Game</h1>
-      <div class="button-container">
-        <% if (showPlayButton) { %>
-          <button class="btn btn-primary" onclick="startGame()">Play</button>
-        <% } %>
-        <button class="btn btn-secondary" onclick="newGame()">New Game</button>
-        <button class="btn btn-info" onclick="showAbout()">About</button>
-      </div>
+        <h1>Welcome to the Visual Novel Game</h1>
+        <div class="button-container">
+            <% if (showPlayButton) { %>
+            <button class="btn btn-primary" onclick="startGame()">Play</button>
+            <% } %>
+            <button class="btn btn-secondary" onclick="newGame()">New Game</button>
+            <button class="btn btn-info" onclick="showAbout()">About</button>
+        </div>
 
-      <div class="about-section" id="about" style="display: none">
-        <h2>About the Game</h2>
-        <p>This is a visual novel game where you interact with characters and make choices that affect the story.</p>
-        <p>Developed by Fathin.</p>
-        <button class="btn btn-danger" onclick="hideAbout()">Close</button>
-      </div>
+        <div class="volume-control">
+            <h2>Volume Controls</h2>
+            <label for="bgmVolume">BGM Volume:</label>
+            <input type="range" id="bgmVolume" min="0" max="10" value="5" />
+            <span id="bgmVolumeLabel">50%</span> <!-- Label untuk BGM Volume -->
+            <br />
+            <label for="sfxVolume">SFX Volume:</label>
+            <input type="range" id="sfxVolume" min="0" max="10" value="7" />
+            <span id="sfxVolumeLabel">70%</span> <!-- Label untuk SFX Volume -->
+        </div>
+
+        <div class="about-section" id="about" style="display: none">
+            <h2>About the Game</h2>
+            <p>This is a visual novel game where you interact with characters and make choices that affect the story.</p>
+            <p>Developed by Fathin.</p>
+            <button class="btn btn-danger" onclick="hideAbout()">Close</button>
+        </div>
     </div>
 
     <script>
-      function startGame() {
-        window.location.href = "/play"; // Redirect to your game page
-      }
+        // Volume controls
+        const bgmVolumeSlider = document.getElementById('bgmVolume');
+        const sfxVolumeSlider = document.getElementById('sfxVolume');
+        const bgmVolumeLabel = document.getElementById('bgmVolumeLabel');
+        const sfxVolumeLabel = document.getElementById('sfxVolumeLabel');
 
-      function newGame() {
-        window.location.href = "/newgame"; // Redirect to new game setup page
-      }
+        // Load volume settings from localStorage
+        function loadVolumeSettings() {
+            let savedBGMVolume = localStorage.getItem('bgm');
+            let savedSFXVolume = localStorage.getItem('sfx');
 
-      function showAbout() {
-        document.getElementById("about").style.display = "block"; // Show about section
-      }
+            // Set default values if not found in localStorage
+            if (savedBGMVolume === null) {
+                savedBGMVolume = 0.5; // Default BGM volume
+                localStorage.setItem('bgm', savedBGMVolume);
+            } else {
+                savedBGMVolume = parseFloat(savedBGMVolume);
+            }
 
-      function hideAbout() {
-        document.getElementById("about").style.display = "none"; // Hide about section
-      }
+            if (savedSFXVolume === null) {
+                savedSFXVolume = 0.7; // Default SFX volume
+                localStorage.setItem('sfx', savedSFXVolume);
+            } else {
+                savedSFXVolume = parseFloat(savedSFXVolume);
+            }
+
+            bgmVolumeSlider.value = savedBGMVolume * 10; // Scale to 0-10 for slider
+            sfxVolumeSlider.value = savedSFXVolume * 10; // Scale to 0-10 for slider
+            bgmVolumeLabel.textContent = `${savedBGMVolume * 100}%`; // Set label for BGM
+            sfxVolumeLabel.textContent = `${savedSFXVolume * 100}%`; // Set label for SFX
+        }
+
+        // Update BGM volume and label
+        bgmVolumeSlider.addEventListener('input', (event) => {
+            const volume = event.target.value / 10;
+            localStorage.setItem('bgm', volume);
+            bgmVolumeLabel.textContent = `${event.target.value * 10}%`; // Update label
+        });
+
+        // Update SFX volume and label
+        sfxVolumeSlider.addEventListener('input', (event) => {
+            const volume = event.target.value / 10;
+            localStorage.setItem('sfx', volume);
+            sfxVolumeLabel.textContent = `${event.target.value * 10}%`; // Update label
+        });
+
+        function startGame() {
+            window.location.href = "/play"; // Redirect to your game page
+        }
+
+        function newGame() {
+            window.location.href = "/newgame"; // Redirect to new game setup page
+        }
+
+        function showAbout() {
+            document.getElementById("about").style.display = "block"; // Show about section
+        }
+
+        function hideAbout() {
+            document.getElementById("about").style.display = "none"; // Hide about section
+        }
+
+        // Load volume settings on page load
+        window.onload = loadVolumeSettings;
     </script>
-  </body>
+</body>
 </html>
