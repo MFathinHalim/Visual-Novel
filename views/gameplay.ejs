@@ -11,6 +11,8 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        height: 100vh;
+        overflow: hidden;
       }
 
       .dialog-container {
@@ -50,6 +52,7 @@
       .character-images img {
         max-height: 1000px;
         padding-top: 100px;
+        object-fit: contain;
         margin: 0 15px;
         transition: transform 0.2s ease;
       }
@@ -133,22 +136,45 @@
           img.src = `${character}.jpg`; // Set image path based on character name
           img.alt = character;
           img.title = character;
+          img.draggable = false;
           characterImagesContainer.appendChild(img);
         });
       }
 
-      // Set the background image based on the environment
+      // Initialize audio elements
+      let backgroundMusic = new Audio();
+      backgroundMusic.allow = "";
+      let soundEffect = new Audio();
+
+      // Function to set background music based on environment
       function setBackground(environment) {
         document.body.style.backgroundImage = `url('${environment}.jpg')`;
+        document.body.style.backgroundPosition = "center";
+
+        // Load and play the background music
+        backgroundMusic.src = `${environment}.mp3`;
+        backgroundMusic.loop = true;
+        backgroundMusic.volume = 0.4
+        document.body.onmousedown = function() {
+          backgroundMusic.play();
+        };
+              }
+
+      // Function to play sound effects
+      function playSoundEffect(emotion) {
+        let soundEffect = new Audio();
+        soundEffect.src = emotion ? `${emotion}.mp3` : "click.mp3";
+        soundEffect.volume = 0.7
+        soundEffect.play().catch((error) => console.warn("Sound effect play failed:", error));
       }
 
-      // Fetch the dialog data from the server
+      // Fetch dialog data and initialize background music
       fetch("/fetchTake")
         .then((response) => response.json())
         .then((data) => {
           dialog = data;
-          dialogData = data[`story${currentStoryIndex}`]; // Access story1
-          setBackground(dialogData.system.environment); // Set environment background
+          dialogData = data[`story${currentStoryIndex}`];
+          setBackground(dialogData.system.environment); // Set environment background and music
           displayCharacters(dialogData.system.characters); // Load characters for the current story
           showDialog(currentDialogIndex);
         });
@@ -161,7 +187,10 @@
           document.getElementById("character-name").innerText = dialog.character;
 
           // Highlight the speaking character
-          highlightSpeakingCharacter(dialog.character);
+          highlightSpeakingCharacter(dialog.character, dialog.emotions);
+          // Highlight speaking character and play sound effect
+          highlightSpeakingCharacter(dialog.character, dialog.emotions);
+          playSoundEffect(dialog.emotions); // Play the corresponding sound effect
 
           // Hide choices if not at the end of dialog
           document.getElementById("choices-container").style.display = "none";
@@ -175,13 +204,14 @@
         }
       }
 
-      function highlightSpeakingCharacter(characterName) {
+      function highlightSpeakingCharacter(characterName, emotions) {
         const characterImages = document.querySelectorAll(".character-images img");
 
         characterImages.forEach((img) => {
-          // Add the 'speaking' class to the speaking character
           if (img.alt === characterName) {
+            // Add the 'speaking' class to the speaking character and remove grayscale
             img.classList.add("speaking");
+            img.style.filter = "none"; // Remove grayscale for the speaking character
 
             // Remove the 'speaking' class after the animation ends
             img.addEventListener(
@@ -190,9 +220,13 @@
                 img.classList.remove("speaking");
               },
               { once: true },
-            ); // Use { once: true } to remove the listener after it's triggered
+            );
+            img.src = characterName + emotions + ".jpg";
+            console.log(characterName + emotions + ".jpg");
+          } else if (characterName === "") {
+            img.style.filter = "grayscale(0%)"; // Apply grayscale to non-speaking characters
           } else {
-            img.classList.remove("speaking"); // Ensure other characters do not have the class
+            img.style.filter = "grayscale(80%)"; // Apply grayscale to non-speaking characters
           }
         });
       }
@@ -328,14 +362,13 @@
         };
 
         // Add the new button to the choices container
-        fetch("/checkTake")
-        .then((response) => {
+        fetch("/checkTake").then((response) => {
           if (response.status === 404) {
             // If no more takes, redirect to home
-            return
+            return;
           }
           choicesContainer.appendChild(button);
-        })
+        });
         choicesContainer.appendChild(button2);
         choicesContainer.style.display = "block"; // Show the choices container if hidden
       }
