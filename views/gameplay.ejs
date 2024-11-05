@@ -157,7 +157,7 @@
         backgroundMusic.volume = localStorage.getItem("bgm")
 
           backgroundMusic.play();
-        
+
         document.body.onmousedown = function() {
           backgroundMusic.play();
         };
@@ -188,10 +188,7 @@
           const dialog = dialogData.chat[index];
           document.getElementById("dialog-text").innerText = dialog.message;
           document.getElementById("character-name").innerText = dialog.character;
-
           // Highlight the speaking character
-          highlightSpeakingCharacter(dialog.character, dialog.emotions);
-          // Highlight speaking character and play sound effect
           highlightSpeakingCharacter(dialog.character, dialog.emotions);
           playSoundEffect(dialog.emotions); // Play the corresponding sound effect
 
@@ -199,6 +196,7 @@
           document.getElementById("choices-container").style.display = "none";
         } else {
           if (dialogData.choices && dialogData.choices.length > 0 && !hasMadeChoice) {
+            console.log(dialogData.choices)
             showChoices(dialogData.choices);
           } else {
             document.getElementById("choices-container").style.display = "none"; // Hide choices if not available
@@ -209,7 +207,7 @@
 
       function highlightSpeakingCharacter(characterName, emotions) {
         const characterImages = document.querySelectorAll(".character-images img");
-
+        console.log(characterName)
         characterImages.forEach((img) => {
           if (img.alt === characterName) {
             // Add the 'speaking' class to the speaking character and remove grayscale
@@ -225,7 +223,6 @@
               { once: true },
             );
             img.src = characterName + emotions + ".jpg";
-            console.log(characterName + emotions + ".jpg");
           } else if (characterName === "") {
             img.style.filter = "grayscale(0%)"; // Apply grayscale to non-speaking characters
           } else {
@@ -282,21 +279,33 @@
       }
 
       function showResponseChat(response) {
-        currentDialogIndex = 0;
+        // Start fresh for the selected choice's response
+        currentDialogIndex = -1;
+
+        // Set the new dialog data to the choice's response and reset the dialog sequence
         dialogData.chat = response;
+        hasMadeChoice = true; // Ensure the choice has been marked as made
+
+        // Show the first line of the choice's response
         showDialog(currentDialogIndex);
       }
 
-      function goToNextStory() {
-        currentStoryIndex += 1;
-        const count = Object.keys(dialog).length;
+      // Function to handle next dialog within the response, ensuring correct sequencing
+      function nextDialog() {
+        currentDialogIndex++;
 
-        // Check if the currentStoryIndex exceeds the available stories
-        if (currentStoryIndex > count) {
-          // If no more stories, show the button to go to nextTake
-          showNextTakeButton();
-          return; // Exit the function early to prevent further code execution
+        if (currentDialogIndex < dialogData.chat.length) {
+          // Continue within the current choice's response chat
+          showDialog(currentDialogIndex);
+        } else if (dialogData.choices && dialogData.choices.length > 0 && !hasMadeChoice) {
+          // Show choices if available and not selected yet
+          showChoices(dialogData.choices);
+        } else {
+          // Move to the next story if the response has ended
+          goToNextStory();
         }
+      }
+
 
         const dialogContainer = document.querySelector(".dialog-container");
         const characterImagesContainer = document.getElementById("character-images");
@@ -337,7 +346,7 @@
           // If next story doesn't exist, show the button to go to nextTake
           showNextTakeButton();
         }
-      }
+      
 
       // Function to show the button for nextTake
       function showNextTakeButton() {

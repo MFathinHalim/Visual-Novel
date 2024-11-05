@@ -24,7 +24,6 @@ app.use((req, res, next) => {
 // Route for the homepage
 app.get("/", (req, res) => {
   const take = parseInt(req.cookies.take, 10) || 1; // Get the value of `take` cookie
-  console.log(take);
   const showPlayButton = take > 1 && take < 5; // Show play button only if take > 1
   
   res.render("home", { showPlayButton }); // Pass the flag to the EJS template
