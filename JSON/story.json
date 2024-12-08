@@ -2,225 +2,245 @@
   "take1": {
     "story1": {
       "system": {
-        "environment": "class",
-        "characters": ["monika", "hajime"]
+        "environment": "ceremony",
+        "characters": ["Kepala Sekolah"]
       },
       "chat": [
-        { "emotions":"", "character": "monika", "message": "Hi everyone! What did you think of the last lesson?" },
-        { "emotions":"", "character": "hajime", "message": "It was interesting, especially the part about teamwork." },
-        { "emotions":"", "character": "", "message": "I liked it too! It made me think." },
-        { "emotions":"", "character": "monika", "message": "Teamwork is so important in everything we do." },
-        { "emotions":"", "character": "hajime", "message": "Definitely! It makes projects more fun." }
-      ],
-      "choices": [
-        {
-          "message": "I think teamwork is essential.",
-          "heart": { "monika": 5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "I totally agree! Working together is always better." },
-            { "emotions":"", "character": "hajime", "message": "Absolutely! We should collaborate more." }
-          ]
-        },
-        {
-          "message": "I prefer to work alone.",
-          "heart": { "monika": -5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "That's understandable, but teamwork can be fun!" },
-            { "emotions":"", "character": "hajime", "message": "Yeah, but working alone has its perks too!" }
-          ]
-        }
-      ]
-    }
-  },
-  "take2": {
-    "story1": {
-      "system": {
-        "environment": "canteen",
-        "characters": ["monika"]
-      },
-      "chat": [
-        { "emotions":"", "character": "", "message": "This place is always so crowded!" },
-        { "emotions":"", "character": "monika", "message": "I know, right? But I love the food here!" },
-        { "emotions":"", "character": "", "message": "What do you usually get?" },
-        { "emotions":"", "character": "monika", "message": "I can't resist the pasta! It's my favorite." }
-      ],
-      "choices": [
-        {
-          "message": "What's your favorite food?",
-          "heart": { "monika": 5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "I really like pasta! How about you?" },
-            { "emotions":"", "character": "", "message": "I love sushi!" },
-            { "emotions":"", "character": "monika", "message": "Sushi is great! We should go together sometime!" }
-          ]
-        },
-        {
-          "message": "I don't really like the food here.",
-          "heart": { "monika": -5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "Oh, really? You should try something new!" },
-            { "emotions":"", "character": "", "message": "Maybe I will!" },
-            { "emotions":"", "character": "monika", "message": "I can recommend some good options!" }
-          ]
-        }
-      ]
-    }
-  },
-  "take3": {
-    "story1": {
-      "system": {
-        "environment": "library",
-        "characters": ["monika", "hajime"]
-      },
-      "chat": [
-        { "emotions":"", "character": "hajime", "message": "WAHAHAHA I AM A QUEEN OF THE PIRATE!" },
-        { "emotions":"angry", "character": "monika", "message": "Shh! We have to be quiet in the library." },
-        { "emotions":"", "character": "hajime", "message": "Right, right. Sorry!" },
-        { "emotions":"", "character": "", "message": "I love the smell of old books." },
-        { "emotions":"", "character": "monika", "message": "It's like a gateway to the past." }
-      ],
-      "choices": [
-        {
-          "message": "Do you come here often?",
-          "heart": { "monika": 5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "I do! There's something magical about libraries." },
-            { "emotions":"", "character": "hajime", "message": "I prefer studying at home." },
-            { "emotions":"", "character": "", "message": "Home is comfortable!" },
-            { "emotions":"", "character": "", "message": "SHIROKO I LVOE YOU!" },
-            { "emotions":"", "character": "", "message": "IDK!" }
-
-          ]
-        },
-        {
-          "message": "I find libraries boring.",
-          "heart": { "monika": -5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "Really? I think they are full of adventure!" },
-            { "emotions":"", "character": "hajime", "message": "Yeah, but I can see how some might find them dull." },
-            { "emotions":"", "character": "", "message": "Maybe I need to explore more!" }
-          ]
-        }
+        { "emotions": "", "character": "Kepala Sekolah", "message": "Selamat pagi para murid sekalian!" },
+        { "emotions": "", "character": "Kepala Sekolah", "message": "Selamat datang di SMA Oke Gas! Sebuah tempat untuk belajar, berkembang, dan mengejar impian kalian!" },
+        { "emotions": "", "character": "Fathin", "message": "Hari ini, aku resmi menjadi siswa SMA. Rasanya... aneh." },
+        { "emotions": "", "character": "Fathin", "message": "Dunia SMA, katanya penuh dengan cerita-cerita seru, seperti persahabatan, tantangan, dan... cinta?" },
+        { "emotions": "", "character": "Fathin", "message": "Tapi aku yakin satu hal: aku tidak tertarik dengan hal semacam itu. Kisah cinta? Itu bukan untukku." },
+        { "emotions": "", "character": "Kepala Sekolah!", "message": "Sekarang mari kita dengar kata sambutan dari murid pilihan" }
       ]
     },
     "story2": {
       "system": {
-        "environment": "library",
-        "characters": ["monika"]
+        "environment": "ceremony",
+        "characters": ["mahiru", "Kepala Sekolah"]
       },
       "chat": [
-        { "emotions":"", "character": "monika", "message": "Eh Doma, ada yang mau aku beritahu" },
-        { "emotions":"", "character": "monika", "message": "Sebenarnya.. aku" }
+        { "emotions": "", "character": "mahiru", "message": "Selamat pagi teman teman!" },
+        { "emotions": "", "character": "mahiru", "message": "Perkenalkan, saya adalah Mahiru Shiina!" },
+        { "emotions": "", "character": "fathin", "message": "Itu ya murid 'terpilih'" },
+        { "emotions": "", "character": "fathin", "message": "Sepertinya pendiam, memang terlihat pintar" },
+        { "emotions": "", "character": "fathin", "message": "Aku akui dia cantik" }
       ],
       "choices": [
         {
-          "message": "kamu bisa bahasa indonesia??",
-          "heart": { "monika": 5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "IYA AKU BISA." }
-
-          ]
+          "message": "Tapi dia bagaikan bunga yang tak bisa diraih di atas gunung",
+          "heart": { "mahiru": 5 },
+          "response": [{ "emotions": "", "character": "Kepala Sekolah", "message": "Terima Kasih Banyak Mahiru!" }, { "emotions": "", "character": "Kepala Sekolah", "message": "Sampai jumpa di kelas semuanya!" }]
         },
         {
-          "message": "aku suka kamu",
-          "heart": { "monika": -5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "Aku enggak" }
-          ]
+          "message": "Tapi dia bagaikan malaikat yang datang mencari pangerannya",
+          "heart": { "mahiru": 5 },
+          "response": [{ "emotions": "", "character": "Kepala Sekolah", "message": "Terima Kasih Banyak Mahiru!" }, { "emotions": "", "character": "Kepala Sekolah", "message": "Sampai jumpa di kelas semuanya!"}]
         }
       ]
     },
     "story3": {
       "system": {
-        "environment": "monika-memory-1",
-        "characters": []
+        "environment": "hallway",
+        "characters": ["mahiru"]
       },
       "chat": [
-        { "emotions":"", "character": "monika", "message": "Eh Doma, aku cantik gak?" },
-        { "emotions":"", "character": "monika", "message": "Ini gaun mamahku" }
+        { "emotions": "", "character": "mahiru", "message": "ADUH!" },
+        { "emotions": "", "character": "fathin", "message": "Ah Maaf!" },
+        { "emotions": "", "character": "fathin", "message": "Biar aku membantumu" },
+        { "emotions": "", "character": "mahiru", "message": "Ah... Terima kasih banyak" }
       ],
       "choices": [
         {
-          "message": "Iya cantik banget",
-          "heart": { "monika": 5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "Hehe, makasih." },
-            { "emotions":"", "character": "monika", "message": "Kamu juga ganteng loh." }
-          ]
-        },
+          "message": "Kenapa kamu membawa banyak buku?",
+          "heart": { "mahiru": 20 },
+          "response": [{ "emotions": "", "character": "mahiru", "message": "Itu... Rahasia" }]
+        }
+      ]
+    },
+    "story4": {
+      "system": {
+        "environment": "hallway",
+        "characters": ["mahiru", "alien"]
+      },
+      "chat": [
+        { "emotions": "", "character": "alien", "message": "Hahaha, Fathin!" },
+        { "emotions": "", "character": "alien", "message": "Akhirnya kita bertemu lagi!" },
+        { "emotions": "", "character": "fathin", "message": "Hah? Kamu siapa anjir" },
+        { "emotions": "", "character": "alien", "message": "Kamu lupa? " },
+        { "emotions": "", "character": "alien", "message": "AKu adalah alien yang kau tampar ditaman hari itu!" },
+        { "emotions": "", "character": "fathin", "message": "Hah? aku tak pernah menampar alien" },
+        { "emotions": "", "character": "mahiru", "message": "Fathin... itu makhluk apa?" },
+        { "emotions": "", "character": "fathin", "message": "Sumpah, aku juga gak tahu" },
+        { "emotions": "", "character": "alien", "message": "Sebagai balas dendamku..." },
+        { "emotions": "", "character": "alien", "message": "I'LL TAKE YOUR BANANA!" }
+      ],
+      "choices": [
         {
-          "message": "jelek ah",
-          "heart": { "monika": 100 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "Aku suka kamu!" }
-          ]
+          "message": "TOLONG",
+          "heart": { "mahiru": 20 },
+          "response": [{ "emotions": "", "character": "???", "message": "CUKUP ALIEN MESUM!" }]
+        }
+      ]
+    },
+    "story5": {
+      "system": {
+        "environment": "hallway",
+        "characters": ["mahiru", "alien", "bocchi"]
+      },
+      "chat": [
+        { "emotions": "", "character": "bocchi", "message": "I AM BOCCHI!" },
+        { "emotions": "", "character": "alien", "message": "HOOOO kamu berani denganku?" },
+        { "emotions": "", "character": "fathin", "message": "KAU, PERGILAH!" },
+        { "emotions": "", "character": "alien", "message": "akan ku bunuh kau " },
+        { "emotions": "", "character": "bocchi", "message": "LIHAT INI, KEKUATAN GITAR EKSPLOSION!!" },
+        { "emotions": "", "character": "fathin", "message": "kekuatan... kekuatan macam apa ini??" },
+        { "emotions": "", "character": "alien", "message": "HAHAHA TAK CUKUP" },
+        { "emotions": "", "character": "alien", "message": "sekarang.. lihat ini" },
+        { "emotions": "", "character": "alien", "message": "THE POWER OF 100 KM/H SPEED" },
+        { "emotions": "", "character": "fathin", "message": "GAWAT" },
+        { "emotions": "", "character": "bocchi", "message": "AHHH SAKITT" }
+      ]
+    },
+    "story6": {
+      "system": {
+        "environment": "hallway",
+        "characters": ["mahiru", "alien", "sapi"]
+      },
+      "chat": [
+        { "emotions": "", "character": "sapi", "message": "hey!" },
+        { "emotions": "", "character": "alien", "message": "hah?!" },
+        { "emotions": "", "character": "sapi", "message": "apa alien suka susu" },
+        { "emotions": "", "character": "sapi", "message": "gawat, TIDAKK!" },
+        { "emotions": "", "character": "mahiru", "message": "semangat! sapi-chan" }
+      ],
+      "choices": [
+        {
+          "message": "eh, bocchi mana??",
+          "heart": { "mahiru": 20 },
+          "response": [{ "emotions": "", "character": "bocchi", "message": "bye... aku akan terbang!" },{ "emotions": "", "character": "fathin", "message": "MALAH TERBANG  !" }]
         }
       ]
     }
+  },"take2": {
+      "story1": {
+        "system": {
+          "environment": "classroom",
+          "characters": ["mahiru", "pak guru"]
+        },
+        "chat": [
+          { "emotions": "", "character": "pak guru", "message": "Selamat pagi, anak-anak! Hari ini kita akan belajar sesuatu yang sangat penting." },
+          { "emotions": "", "character": "fathin", "message": "Akhirnya, pelajaran pertama di SMA. Semoga nggak aneh-aneh." },
+          { "emotions": "", "character": "pak guru", "message": "Tapi sebelum kita mulai, siapa yang di sini tahu tentang teori evolusi jerapah tiga leher?" },
+          { "emotions": "", "character": "fathin", "message": "Teori apa?! Itu nggak ada di buku pelajaran mana pun!" },
+          { "emotions": "", "character": "mahiru", "message": "Pak Guru, bukankah jerapah hanya punya satu leher panjang?" },
+          { "emotions": "", "character": "pak guru", "message": "Oh, itu pemikiran kuno. Dalam realitas lain, jerapah berevolusi menjadi makhluk tiga leher demi mencium bintang." },
+          { "emotions": "", "character": "fathin", "message": "Apa-apaan ini?! Kalau tiba-tiba monster muncul gimana?!" },
+          { "emotions": "", "character": "pak guru", "message": "Tenang, semuanya ada di bawah kontrol. Nah, Mahiru, coba kamu yang pertama." },
+          { "emotions": "", "character": "mahiru", "message": "*Dengan ragu* Baiklah, saya coba..." }
+        ]
+      },
+      "story2": {
+        "system": {
+          "environment": "classroom",
+          "characters": ["mahiru", "pak guru", "jerapah tiga leher"]
+        },
+        "chat": [
+          { "emotions": "", "character": "", "message": "*Portal bercahaya muncul di papan tulis, dan suara lenguhan jerapah menggema di kelas.*" },
+          { "emotions": "", "character": "pak guru", "message": "Sempurna! Itu jerapah tiga leher! Cepat, ambil catatan kalian dan amati!" },
+          { "emotions": "", "character": "fathin", "message": "Aku nggak percaya ini. Jerapahnya... punya tiga leher beneran?! Dan satu lehernya... makan kertas ulangan?!" },
+          { "emotions": "", "character": "jerapah tiga leher", "message": "Mmmmm... manusia kecil bodoh, aku suka makan nilai jelek." },
+          { "emotions": "", "character": "mahiru", "message": "Tunggu, jerapah ini bisa bicara?! Pak Guru, apa yang sedang terjadi?!" },
+          { "emotions": "", "character": "pak guru", "message": "Ah, detail kecil itu tidak penting. Yang penting, siapa di sini yang mau menungganginya?" },
+          { "emotions": "", "character": "fathin", "message": "MENUNGGANGI?! Ini semakin tidak masuk akal!" }
+        ]
+      },
+      "story3": {
+        "system": {
+          "environment": "classroom",
+          "characters": ["bocchi", "jerapah tiga leher", "pak guru", "mahiru"]
+        },
+        "chat": [
+          { "emotions": "", "character": "bocchi", "message": "Aku mau coba!" },
+          { "emotions": "", "character": "pak guru", "message": "Baik, Bocchi, kau yang pertama. Hati-hati, dia suka menjatuhkan penunggang ke portal lain!" },
+          { "emotions": "", "character": "fathin", "message": "Portal lain? Apa maksudnya?!" },
+          { "emotions": "", "character": "bocchi", "message": "Lihat aku! Aku menunggangi jerapah tiga leher! WAAHHHH!! *terhisap ke dalam portal lain*" },
+          { "emotions": "", "character": "fathin", "message": "APA AKU NGGAK BILANG? INI SEKOLAH APA WAHANA HOROR?!" }
+        ],
+        "choices": [
+          {
+            "message": "Masuki portal untuk menyelamatkan Bocchi.",
+            "heart": { "bocchi": 30 },
+            "response": [
+              { "emotions": "", "character": "", "message": "Kalian tiba di dunia penuh jerapah tiga leher yang terbang dengan roket." },
+              { "emotions": "", "character": "bocchi", "message": "Tolong! Mereka mau menjadikan aku pemimpin mereka!" },
+              { "emotions": "", "character": "fathin", "message": "Pemimpin? Itu kan bagus!" },
+              { "emotions": "", "character": "bocchi", "message": "TIDAK! Itu artinya aku harus menikahi raja jerapah mereka!" }
+            ]
+          },
+          {
+            "message": "Tinggalkan Bocchi dan kabur dari kelas.",
+            "heart": { "pak guru": -20 },
+            "response": [
+              { "emotions": "", "character": "pak guru", "message": "Dasar pengecut, Fathin! Kau kehilangan kesempatan belajar yang sangat langka!" },
+              { "emotions": "", "character": "mahiru", "message": "Apa kita nggak perlu menyelamatkan Bocchi? Dia temanku juga, lho." },
+              { "emotions": "", "character": "fathin", "message": "Maaf, aku lebih suka hidup normal. Ini semua terlalu absurd buatku." }
+            ]
+          }
+        ]
+      }
   },
-  "take4": {
+  "take3": {
     "story1": {
       "system": {
-        "environment": "canteen",
-        "characters": ["monika", "hajime"]
+        "environment": "classroom",
+        "characters": ["mahiru"]
       },
       "chat": [
-        { "emotions":"", "character": "monika", "message": "What do you think about the school events?" },
-        { "emotions":"", "character": "hajime", "message": "They can be fun, but sometimes a bit chaotic." },
-        { "emotions":"", "character": "", "message": "I love the energy!" }
-      ],
-      "choices": [
-        {
-          "message": "I love participating in them!",
-          "heart": { "monika": 10 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "That's awesome! It's a great way to meet people." },
-            { "emotions":"", "character": "hajime", "message": "Yeah, I enjoy the energy!" },
-            { "emotions":"", "character": "", "message": "Let's join the next event together!" }
-          ]
-        },
-        {
-          "message": "I prefer to just watch.",
-          "heart": { "monika": -5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "That's cool too! Everyone has their own style." },
-            { "emotions":"", "character": "hajime", "message": "True, it's fun to see how others participate." },
-            { "emotions":"", "character": "", "message": "Maybe I can participate next time!" }
-          ]
-        }
+        { "emotions": "", "character": "fathin", "message": "*melihat Mahiru menulis di mejanya* Masih sibuk, Mahiru?" },
+        { "emotions": "", "character": "mahiru", "message": "*tersentak kaget* Ah, Fathin? Kamu belum pulang?" },
+        { "emotions": "", "character": "fathin", "message": "Belum. Aku cuma iseng, menikmati suasana sepi di sini. Kamu sendiri?" },
+        { "emotions": "", "character": "mahiru", "message": "*tersenyum kecil* Aku sedang mencatat sesuatu. Kadang menulis bisa membuat pikiranku lebih tenang." },
+        { "emotions": "", "character": "fathin", "message": "Pasti sesuatu yang penting, ya? Puisi atau semacamnya?" },
+        { "emotions": "", "character": "mahiru", "message": "*menggeleng pelan* Hanya... hal-hal yang ingin kuingat. Mungkin suatu saat aku akan menunjukkan padamu." },
+        { "emotions": "", "character": "fathin", "message": "Aku akan menunggu saat itu. Aku yakin tulisanmu pasti menarik." },
+        { "emotions": "", "character": "mahiru", "message": "Terima kasih, Fathin. Kamu selalu tahu cara membuatku merasa dihargai." },
+        { "emotions": "", "character": "fathin", "message": "*tersenyum hangat* Karena kamu memang pantas dihargai, Mahiru." }
       ]
-    }
-  },
-  "take5": {
-    "story1": {
+    },
+    "story2": {
       "system": {
-        "environment": "class",
-        "characters": ["monika", "hajime"]
+        "environment": "rooftop",
+        "characters": ["mahiru"]
       },
       "chat": [
-        { "emotions":"", "character": "hajime", "message": "Hey Monika, do you have any plans for the weekend?" },
-        { "emotions":"", "character": "monika", "message": "Not yet! Any suggestions?" },
-        { "emotions":"", "character": "", "message": "How about a study group?" }
-      ],
-      "choices": [
-        {
-          "message": "How about a study group?",
-          "heart": { "monika": 5 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "That sounds great! Count me in." },
-            { "emotions":"", "character": "hajime", "message": "I could use the help!" },
-            { "emotions":"", "character": "", "message": "Let's make a schedule!" }
-          ]
-        },
-        {
-          "message": "Let's go to the movies!",
-          "heart": { "monika": 10 },
-          "response": [
-            { "emotions":"", "character": "monika", "message": "I love movies! Which one should we watch?" },
-            { "emotions":"", "character": "hajime", "message": "I heard the new action movie is awesome!" },
-            { "emotions":"", "character": "", "message": "Sounds like a plan!" }
-          ]
-        }
+        { "emotions": "", "character": "fathin", "message": "*melihat Mahiru menatap langit* Langitnya cerah sekali, ya?" },
+        { "emotions": "", "character": "mahiru", "message": "*tersenyum sambil melihat ke atas* Iya. Kadang aku datang ke sini hanya untuk melihat ini." },
+        { "emotions": "", "character": "fathin", "message": "Langit di sini memang spesial, tapi aku rasa kamu yang membuat suasana jadi lebih istimewa." },
+        { "emotions": "", "character": "mahiru", "message": "*tersipu* Kamu suka bercanda, ya, Fathin." },
+        { "emotions": "", "character": "fathin", "message": "*tertawa kecil* Aku serius. Setiap kali ngobrol denganmu, semuanya terasa lebih hidup." },
+        { "emotions": "", "character": "mahiru", "message": "Fathin, kamu pernah merasa ingin menyimpan satu momen selamanya?" },
+        { "emotions": "", "character": "fathin", "message": "*mengangguk* Kalau aku boleh memilih, mungkin momen ini." },
+        { "emotions": "", "character": "mahiru", "message": "*melihat Fathin dalam-dalam* Terima kasih. Kamu membuatku merasa spesial." },
+        { "emotions": "", "character": "fathin", "message": "Karena kamu memang spesial, Mahiru." }
+      ]
+    },
+    "story3": {
+      "system": {
+        "environment": "park",
+        "characters": ["mahiru"]
+      },
+      "chat": [
+        { "emotions": "", "character": "fathin", "message": "*melihat Mahiru duduk di bangku taman* Hei, Mahiru! Sedang apa di sini sendirian?" },
+        { "emotions": "", "character": "mahiru", "message": "*tersenyum lembut* Hanya menikmati ketenangan. Kadang aku butuh waktu untuk berpikir." },
+        { "emotions": "", "character": "fathin", "message": "Boleh aku duduk di sini? Kalau nggak mengganggu." },
+        { "emotions": "", "character": "mahiru", "message": "*mengangguk* Tentu saja. Kamu tidak pernah mengganggu, kok." },
+        { "emotions": "", "character": "fathin", "message": "Jadi, apa yang sedang kamu pikirkan sekarang?" },
+        { "emotions": "", "character": "mahiru", "message": "*tertawa kecil* Banyak hal. Tentang masa depan, tentang apa yang aku inginkan, dan... orang-orang penting dalam hidupku." },
+        { "emotions": "", "character": "fathin", "message": "*tersenyum kecil* Apakah aku termasuk di dalamnya?" },
+        { "emotions": "", "character": "mahiru", "message": "*tersipu* Mungkin saja. Kamu selalu berhasil membuatku merasa lebih baik." },
+        { "emotions": "", "character": "fathin", "message": "Itu karena kamu penting bagiku, Mahiru." },
+        { "emotions": "", "character": "mahiru", "message": "*terdiam sejenak, lalu tersenyum hangat* Terima kasih, Fathin. Kamu juga penting bagiku." }
       ]
     }
   }

@@ -126,6 +126,10 @@
 
       // Prevent the body click from doing anything else
       document.body.addEventListener("click", nextDialog);
+      document.body.addEventListener("keydown", (e) => {
+        if(e.key === " " || e.code === "space") nextDialog()
+      });
+
 
       function displayCharacters(characters) {
         const characterImagesContainer = document.getElementById("character-images");
@@ -133,7 +137,7 @@
 
         characters.forEach((character) => {
           const img = document.createElement("img");
-          img.src = `${character}.jpg`; // Set image path based on character name
+          img.src = `${character}.png`; // Set image path based on character name
           img.alt = character;
           img.title = character;
           img.draggable = false;
@@ -207,7 +211,7 @@
 
       function highlightSpeakingCharacter(characterName, emotions) {
         const characterImages = document.querySelectorAll(".character-images img");
-        console.log(characterName)
+
         characterImages.forEach((img) => {
           if (img.alt === characterName) {
             // Add the 'speaking' class to the speaking character and remove grayscale
@@ -222,7 +226,7 @@
               },
               { once: true },
             );
-            img.src = characterName + emotions + ".jpg";
+            img.src = characterName + emotions + ".png";
           } else if (characterName === "") {
             img.style.filter = "grayscale(0%)"; // Apply grayscale to non-speaking characters
           } else {
@@ -288,6 +292,50 @@
 
         // Show the first line of the choice's response
         showDialog(currentDialogIndex);
+      }
+      function goToNextStory() {
+        currentStoryIndex += 1;
+        const count = Object.keys(dialog).length;
+        // Check if the currentStoryIndex exceeds the available stories
+        console.log(currentStoryIndex)
+        console.log(count)
+        console.log(dialog)
+        if (currentStoryIndex > count) {
+          // If no more stories, show the button to go to nextTake
+          showNextTakeButton();
+          return; // Exit the function early to prevent further code execution
+        }
+        const dialogContainer = document.querySelector(".dialog-container");
+        const characterImagesContainer = document.getElementById("character-images");
+        // Add fade-out class to the dialog and character images
+        dialogContainer.classList.add("fade-out");
+        characterImagesContainer.classList.add("fade-out");
+        // Wait for the fade-out animation to finish
+        const nextStoryKey = `story${currentStoryIndex}`;
+        // Check if the next story exists
+        if (dialog[nextStoryKey]) {
+          dialogData = dialog[nextStoryKey];
+          currentDialogIndex = 0;
+          hasMadeChoice = false;
+          // Set the new background and character images
+          setBackground(dialogData.system.environment);
+          displayCharacters(dialogData.system.characters);
+          // Show the first dialog of the next story
+          showDialog(currentDialogIndex);
+          // After changing content, add fade-in
+          dialogContainer.classList.remove("fade-out");
+          characterImagesContainer.classList.remove("fade-out");
+          dialogContainer.classList.add("fade-in");
+          characterImagesContainer.classList.add("fade-in");
+          // Remove fade-in class after animation ends
+          setTimeout(() => {
+            dialogContainer.classList.remove("fade-in");
+            characterImagesContainer.classList.remove("fade-in");
+          }, 500); // Adjust based on animation duration
+        } else {
+          // If next story doesn't exist, show the button to go to nextTake
+          showNextTakeButton();
+        }
       }
 
       // Function to handle next dialog within the response, ensuring correct sequencing
